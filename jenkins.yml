@@ -1,7 +1,7 @@
 identidock:
   build: .
   expose:
-    - "5000"
+    - "9090"
   environment:
     ENV: PROD
     links:
