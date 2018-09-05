@@ -7,11 +7,11 @@ identidock:
   environment:
     ENV: PROD
   links:
-      - dnmonster
-      - redis
+      - jenkins_dnmonster_1
+      - jenkins_redis_1
 
-dnmonster:
+jenkins_dnmonster_1:
   image: amouat/dnmonster:1.0
 
-redis:
+jenkins_redis_1:
   image: redis:3.0
