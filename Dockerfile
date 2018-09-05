@@ -12,7 +12,7 @@ COPY app /app
 COPY cmd.sh /
 
 EXPOSE 9090 9191
-USER uwsgi
+USER root
 
 CMD ["/cmd.sh"]
 #CMD ["uwsgi","--http","0.0.0.0:9090","--wsgi-file","/app/identidock.py","--callable","app","--stats","0.0.0.0:9191"]

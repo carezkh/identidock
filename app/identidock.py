@@ -5,7 +5,7 @@ import redis
 import html
 
 app = Flask(__name__)
-cache = redis.StrictRedis(host='redis', port=6379, db=0)
+cache=redis.StrictRedis(host='redis',port=6379,db=0)
 salt = "UNIQUE_SALT"
 default_name = 'Joe Bloggs'
 
@@ -24,9 +24,9 @@ def mainpage():
               Hello <input type="text" name="name" value="{}">
               <input type="submit" value="submit">
               </form>
-              <p>You look like a:fakj
+              <p>You look like a:
               <img src="/monster/{}"/>
-              '''.format(name, name_hash)
+              '''.format(name,name_hash)
     footer = '</body></html>'
 
     return header + body + footer
@@ -34,16 +34,15 @@ def mainpage():
 
 @app.route('/monster/<name>')
 def get_identicon(name):
+	
+	image=cache.get(name)
+	if image is None:
+		print ("Cache miss",flush=True)
+		r = requests.get('http://dnmonster:8080/monster/' + name + '?size=80')
+		image = r.content
+		cache.set(name,image)
 
-    name = html.escape(request.form['name'], quote=True)
-    image = cache.get(name)
-    if image is None:
-        print ("Cache miss", flush=True)
-        r = requests.get('http://dnmoster:8080/monster/' + name + '?size=80')
-        image = r.content
-        cache.set(name, image)
-
-    return Response(image, mimetype='image/png')
+	return Response(image, mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
