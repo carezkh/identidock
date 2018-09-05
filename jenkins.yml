@@ -6,7 +6,7 @@ identidock:
     - "9090:9090"
   environment:
     ENV: PROD
-    links:
+  links:
       - dnmonster
       - redis
 
