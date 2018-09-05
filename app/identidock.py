@@ -24,7 +24,7 @@ def mainpage():
               Hello <input type="text" name="name" value="{}">
               <input type="submit" value="submit">
               </form>
-              <p>You look like a:
+              <p>You look like a:fakj
               <img src="/monster/{}"/>
               '''.format(name, name_hash)
     footer = '</body></html>'
@@ -39,7 +39,7 @@ def get_identicon(name):
     image = cache.get(name)
     if image is None:
         print ("Cache miss", flush=True)
-        r = requests.get('http://172.17.0.3:8080/monster/' + name + '?size=80')
+        r = requests.get('http://dnmoster:8080/monster/' + name + '?size=80')
         image = r.content
         cache.set(name, image)
 
